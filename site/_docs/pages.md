@@ -87,3 +87,16 @@ might look like:
 
 This approach may not suit everyone, but for people who like clean URLs it’s
 simple and it works. In the end the decision is yours!
+
+<div class="note">
+  <h5>ProTip™: Use the permalink Front Matter variable</h5>
+  <p>
+    You can achieve clean URLs using the `permalink` Front Matter Variable e.g. in `about.html` in the first method, you could add this to the top of the file:
+{% highlight yaml %}
+---
+permalink: /about/
+---
+{% endhighlight %}
+	The resulting URL would be `http://example.com/about`
+  </p>
+</div>
