@@ -5,6 +5,8 @@ module Jekyll
     class ImmutableDrop < Liquid::Drop
       IllegalDropModification = Class.new(Jekyll::StandardError)
 
+      NON_CONTENT_METHODS = [:[], :[]=, :inspect, :to_h, :fallback_data].freeze
+
       def initialize(obj)
         @obj = obj
       end
@@ -24,6 +26,17 @@ module Jekyll
           fallback_data[key] = val
         end
       end
+
+      def to_h
+        [
+          self.class.instance_methods(false) - NON_CONTENT_METHODS,
+          fallback_data.keys
+        ].flatten.inject({}) do |result, key|
+          result[key] = self[key]
+          result
+        end
+      end
+      alias_method :inspect, :to_h
 
     end
   end
